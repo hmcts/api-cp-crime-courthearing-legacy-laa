@@ -1,0 +1,266 @@
+openapi: 3.0.1
+servers:
+  - description: APIHub API Auto Mocking api-cp-crime-courthearing-legacy-laa
+    url: https://virtserver.swaggerhub.com/HMCTS-DTS/api-cp-crime-courthearing-legacy-laa/0.0.0
+
+info:
+  title: Common Platform (CP) API Crime Court Hearing Legacy Legal Aid Agency (LAA)
+  description: Common Platform Legacy APIs supporting the Legal Aid Agency (LAA)
+  version: 0.0.0
+  contact:
+    email: no-reply@hmcts.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+
+paths:
+  /hearing/results:
+    get:
+      summary: GET HearingResult
+      description: 'Get hearing results '
+      operationId: get-laagethearinghttptrigger
+      parameters:
+        - name: hearingId
+          in: query
+          required: true
+          schema:
+            type: ''
+      responses:
+        '202':
+          description: ''
+  /prosecutionCases:
+    get:
+      summary: getCaseDetailsUnifiedSearch
+      description: Get the case details based on query parameters
+      operationId: getcasedetailsunifiedsearch
+      parameters:
+        - name: prosecutionCaseReference
+          in: query
+          description: Prosecution Case Reference of the required case
+          schema:
+            type: String
+        - name: defendantASN
+          in: query
+          description: The police arrest summons number when the defendant is a person
+          schema:
+            type: String
+        - name: defendantName
+          in: query
+          description: The name of the defendant
+          schema:
+            type: String
+        - name: defendantNINO
+          in: query
+          description: The person nino when the defendant is a person
+          schema:
+            type: String
+        - name: defendantDOB
+          in: query
+          description: The person date of birth when the defendant is a person
+          schema:
+            type: String
+        - name: dateOfNextHearing
+          in: query
+          description: next hearing date in the format YYYY-MM-DD
+          schema:
+            type: String
+      responses:
+        '202':
+          description: ''
+  '/prosecutionCases/representationOrder/cases/{prosecutionCaseId}/defendants/{defendantId}/offences/{offenceId}':
+    post:
+      summary: receiveRepresentationOrder
+      description: This API will receive representation order for LAA reference, providing updates to already received LAA references
+      operationId: receiverepresentationorder
+      parameters:
+        - name: prosecutionCaseId
+          in: path
+          description: This is the case Id
+          required: true
+          schema:
+            type: string
+        - name: defendantId
+          in: path
+          description: This is the defendant Id
+          required: true
+          schema:
+            type: string
+        - name: offenceId
+          in: path
+          description: This is the offence Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              statusCode: G2
+              applicationReference: LAA-20191601
+              statusDate: '2019-12-16T12:00:00.0000000+00:00'
+              effectiveStartDate: '2019-09-12T12:00:00.0000000+00:00'
+              effectiveEndDate: '2019-12-12T12:00:00.0000000+00:00'
+              defenceOrganisation:
+                laaContractNumber: LAA3482374WER
+                organisation:
+                  name: a
+                  incorporationNumber: a
+                  registeredCharityNumber: a
+                  address:
+                    address1: a
+                    address2: a
+                    address3: a
+                    address4: a
+                    address5: a
+                    postcode: GIR0AA
+                  contact:
+                    home: ' '
+                    work: a
+                    mobile: ' '
+                    primaryEmail: '!.!@00.00'
+                    secondaryEmail: '!.!@00.00'
+                    fax: a
+      responses:
+        '202':
+          description: ''
+  '/prosecutionCases/laaReference/cases/{caseId}/defendant/{defendantId}/offences/{offenceId}':
+    post:
+      summary: recordLaaReference
+      description: This end point will update the LAA reference for the provided offence id
+      operationId: recordlaareference
+      parameters:
+        - name: caseId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: defendantId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: offenceId
+          in: path
+          required: true
+          schema:
+            type: ''
+      requestBody:
+        content:
+          application/json:
+            example:
+              applicationReference: AB746921
+              statusCode: statusCode
+              statusDate: '1980-07-15T12:00:00.0000000+00:00'
+      responses:
+        '200':
+          description: ''
+  /hearing/hearingLog:
+    get:
+      summary: GetHearingEventLog
+      description: Get the hearing log by hearing id and date
+      operationId: get-laagethearingeventloghttptriggerfast
+      parameters:
+        - name: hearingId
+          in: query
+          required: true
+          schema:
+            type: ''
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+  /api/external/v1/hearings:
+    post:
+      summary: Publish Results
+      description: Publish Results
+      operationId: publish-results
+      responses:
+        '200':
+          description: ''
+  '/applications/{applicationId}':
+    get:
+      summary: getApplicationDetails
+      description: getApplicationDetails
+      operationId: getapplicationdetails
+      parameters:
+        - name: applicationId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: applicationId
+          in: query
+          description: application Id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/prosecutionCases/laaReference/applications/{applicationId}/subject/{subjectId}/offences/{offenceId}':
+    post:
+      summary: rocordApplicationLaaRefererence
+      description: This end point will update the LAA application reference for the offence id passed
+      operationId: rocordapplicationlaarefererence
+      parameters:
+        - name: applicationId
+          in: path
+          required: true
+          schema:
+            type: String
+        - name: subjectId
+          in: path
+          required: true
+          schema:
+            type: String
+        - name: offenceId
+          in: path
+          required: true
+          schema:
+            type: String
+      responses:
+        '200':
+          description: ''
+  '/prosecutionCases/representationOrder/applications/{applicationId}/subject/{subjectId}/offences/{offenceId}':
+    post:
+      summary: receiveApplicationRepresentationOrder
+      description: This API will receive application representation order for LAA reference, providing updates to already received LAA references
+      operationId: receiveapplicationrepresentationorder
+      parameters:
+        - name: applicationId
+          in: path
+          description: application Id
+          required: true
+          schema:
+            type: string
+        - name: subjectId
+          in: path
+          description: subject Id is defendant Id
+          required: true
+          schema:
+            type: string
+        - name: offenceId
+          in: path
+          description: offence Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: A-KEY-NAME-HEADER
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: A-KEY-NAME-QUERY
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

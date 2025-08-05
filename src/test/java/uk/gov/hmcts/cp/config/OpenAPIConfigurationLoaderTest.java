@@ -21,10 +21,10 @@ class OpenAPIConfigurationLoaderTest {
 
         Info info = openAPI.getInfo();
         assertNotNull(info);
-        assertEquals("Common Platform API", info.getTitle());
-        assertEquals("API description", info.getDescription());
+        assertEquals("Common Platform (CP) API Crime Court Hearing Legacy Legal Aid Agency (LAA)", info.getTitle());
+        assertEquals("Common Platform Legacy APIs supporting the Legal Aid Agency (LAA)", info.getDescription());
 
-        String apiGitHubRepository = "api-cp-template";
+        String apiGitHubRepository = "api-cp-crime-courthearing-legacy-laa";
         String expectedVersion = System.getProperty("API_SPEC_VERSION", "0.0.0");
         log.info("API version set to: {}", expectedVersion);
 
